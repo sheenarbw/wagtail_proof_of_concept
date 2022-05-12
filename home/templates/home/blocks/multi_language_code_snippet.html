@@ -1,0 +1,56 @@
+{% load wagtailcore_tags %}
+
+
+{% for snippet in value %}
+
+<button onclick="select_language('{{ snippet.value.language }}')"
+class="code-snippet-selector code-snippet-selector-{{snippet.value.language}}"
+>
+    {{ snippet.value.language }}
+</button>
+
+{% endfor %}
+
+
+{% for snippet in value %}
+
+<div style = "border: 1px solid black" class="code-snippet code-snippet-{{snippet.value.language}}">
+    <pre>{{ snippet.value.snippet }}</pre>
+</div>
+
+{% endfor %}
+
+
+<script>
+
+    function select_language(language){
+        const blocks = document.getElementsByClassName("code-snippet")
+        for (block of blocks){
+            block.style.display = "none";
+        }
+
+        const showBlocks = document.getElementsByClassName(`code-snippet-${language}`)
+        for (block of showBlocks){
+            block.style.display = "block";
+        }
+
+        const buttons = document.getElementsByClassName("code-snippet-selector")
+        for (button of buttons){
+            button.style['background-color'] = ""
+
+        }
+
+
+        const selectedButtons = document.getElementsByClassName(`code-snippet-selector-${language}`)
+
+        for (button of selectedButtons){
+            button.style['background-color'] = "aquamarine"
+
+        }
+
+
+    }
+
+    select_language("{{value.0.value.language}}")
+
+</script>

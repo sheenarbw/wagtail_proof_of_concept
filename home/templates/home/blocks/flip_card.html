@@ -1,0 +1,23 @@
+{% load wagtailcore_tags %}
+
+<script>
+    function handle_click_{{block_id}}(){
+        const back = document.getElementById("{{ block_id }}_back")
+        back.style.display = "block";
+    }
+
+</script>
+
+
+<div id="{{ block_id }}" >
+    <div style="background-color: aquamarine;">
+        {{ value.front|richtext }}
+        <button onclick="handle_click_{{block_id}}()">Show answer</button>
+    </div>
+
+    <div id="{{ block_id }}_back" style="background-color:hotpink; display:none">
+        {{ value.back|richtext }}
+    </div>
+</div>
+
+

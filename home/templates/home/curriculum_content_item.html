@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailmarkdown %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+
+<h1>{{ page.title }}</h1>
+<hr/>
+
+
+
+<article>
+    {% for block in page.body %}
+        {% if block.block_type == 'heading' %}
+            <h1>{{ block.value }}</h1>
+
+        {% else %}
+            <section class="block-{{ block.block_type }}">
+                {% include_block block %}
+            </section>
+        {% endif %}
+    {% endfor %}
+</article>
+
+
+{% endblock %}

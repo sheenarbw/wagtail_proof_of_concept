@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+    <p>NQF standard: {{ page.nqf_standard }}</p>
+    <p>Full time duration: {{ page.full_time_duration_months }} months</p>
+
+    <div class="intro">{{ page.body|richtext }}</div>
+
+    <hr/>
+
+    <article>
+        {% for block in page.stream_body %}
+        {% if block.block_type == 'heading' %}
+            <h1>{{ block.value }}</h1>
+        {% else %}
+            <section class="block-{{ block.block_type }}">
+                {% include_block block %}
+            </section>
+        {% endif %}
+        {% endfor %}
+    </article>
+
+    <ol>
+
+        {% for element in page.curriculum_requirements.all %}
+        <li>
+            <a href="{% pageurl element.content_item %}">
+                {{ element.content_item.title }}
+            </a>
+            {% if element.hard_requirement == False %}
+            <i> (Optional)</i>
+            {% endif %}
+        </li>
+
+        {% endfor %}
+    </ol>
+
+{% endblock %}

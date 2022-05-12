@@ -1,0 +1,9 @@
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
+
+<div class="image">
+    {% image value.image width-400 %}
+    <i>
+        {{ value.caption|richtext }}
+    </i>
+</div>
